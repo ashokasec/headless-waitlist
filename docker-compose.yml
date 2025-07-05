@@ -1,0 +1,18 @@
+name: waitlist
+services:
+  db:
+    container_name: waitlist-db
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ashokasec
+      POSTGRES_PASSWORD: ashokasec
+      POSTGRES_DB: waitlist-db
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
