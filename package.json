@@ -4,22 +4,29 @@
   "private": true,
   "author": "ashokasec",
   "scripts": {
+    "COMMENT__1": "DEFAULT SCRIPTS ----------------------------",
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+
+    "COMMENT__2": "BIOME SCRIPTS -------------------------------",
+    "biome:format": "biome format --write .",
+    "biome:lint": "biome lint --write .",
+    "biome:check": "biome check --write ."
   },
   "dependencies": {
+    "next": "15.3.5",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "next": "15.3.5"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@biomejs/biome": "2.0.6",
+    "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4"
+    "tailwindcss": "^4",
+    "typescript": "^5"
   }
 }
