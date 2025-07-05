@@ -1,9 +1,11 @@
+import env from "@/lib/env";
+
 export const seo = {
   title: "Join the Waitlist – ProductName",
   name: "ProductName",
   description:
     "Be the first to experience ProductName — a revolutionary tool that changes the game.",
-  url: "https://yourdomain.com",
+  url: env.NEXT_PUBLIC_APP_URL,
   ogImage: "https://yourdomain.com/og.png",
   keywords: "waitlist, product, launch, early access, signup",
   twitter: {
