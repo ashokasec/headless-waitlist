@@ -1,3 +1,5 @@
+import { seo } from "@/lib/config/seo";
+
 export const WaitlistSignupEmail = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html dir="ltr" lang="en">
   <head>
@@ -47,8 +49,7 @@ export const WaitlistSignupEmail = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0
                       style="font-size:16px;color:rgb(55,65,81);margin-bottom:24px;line-height:24px;margin-top:16px">
                       <span style="font-size:0.875rem;line-height:1.25rem"
                         >The Next Billin Dollor Company,</span
-                      ><br /><strong style="font-weight:600"
-                        >Waitlist App</strong
+                      ><br /><strong style="font-weight:600">${seo.name}</strong
                       >.
                     </p>
                   </td>

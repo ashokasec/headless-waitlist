@@ -1,10 +1,11 @@
 import env from "@/lib/env";
 
+const name = "Headless Waitlist";
+
 export const seo = {
-  title: "Join the Waitlist – ProductName",
-  name: "ProductName",
-  description:
-    "Be the first to experience ProductName — a revolutionary tool that changes the game.",
+  title: `Join the Waitlist – ${name}`,
+  name,
+  description: `Be the first to experience ${name} — a revolutionary tool that changes the game.`,
   url: env.NEXT_PUBLIC_APP_URL,
   ogImage: "https://yourdomain.com/og.png",
   keywords: "waitlist, product, launch, early access, signup",
