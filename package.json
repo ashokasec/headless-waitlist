@@ -29,6 +29,7 @@
     "docker:down": "docker compose down --volumes --remove-orphans"
   },
   "dependencies": {
+    "@arcjet/next": "1.0.0-beta.8",
     "@radix-ui/react-slot": "^1.2.3",
     "@t3-oss/env-nextjs": "^0.13.8",
     "class-variance-authority": "^0.7.1",
@@ -40,6 +41,8 @@
     "postgres": "^3.4.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hot-toast": "^2.5.2",
+    "resend": "^4.6.0",
     "tailwind-merge": "^3.3.1",
     "zod": "^3.25.74"
   },
