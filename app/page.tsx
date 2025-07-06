@@ -1,5 +1,6 @@
 import WaitListForm from "@/components/waitlist-ui";
 import { geistSans } from "@/lib/fonts";
+import Link from "next/link";
 
 const page = () => {
   return (
@@ -9,6 +10,9 @@ const page = () => {
         My Upcoming Billion Dollor Product
       </h1>
       <WaitListForm />
+      <Link href="https://x.com/ashokasec" className="mt-6 font-medium underline" style={geistSans.style}>
+        am here on x
+      </Link>
     </main>
   );
 };
