@@ -1,5 +1,7 @@
 import env from "@/lib/env";
 
+// TODO: 1. Change the values according to your app.
+
 const name = "Headless Waitlist";
 
 export const seo = {

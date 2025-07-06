@@ -62,6 +62,7 @@ export async function POST(req: Request) {
     if (!existingEmail) {
       await db.insert(emailTable).values({ email });
 
+      // TODO: 4. Setup the email configuration.
       await resend.emails.send({
         from: `${seo.name} <onboarding@mail.comics.sh>`,
         to: email,

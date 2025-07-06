@@ -124,8 +124,8 @@ export default function EmailForm(): JSX.Element {
           onSubmit={onSubmit}
           className="mt-4 flex flex-col sm:items-center gap-2 sm:gap-4 w-full"
         >
+          {/* TODO: 3. You can change the styling of input and button. */}
           <Input
-            className="w-full !text-base text-black focus-visible:ring-green-500 px-6 py-6 bg-white/5 border-2 border-green-500/80 rounded-xl focus:outline-none focus:border-transparent transition-all placeholder:text-gray-500 disabled:opacity-70"
             placeholder="you@example.com"
             type="email"
             value={formData.email}
@@ -140,7 +140,7 @@ export default function EmailForm(): JSX.Element {
           <Button
             type="submit"
             size="lg"
-            className="w-full text-white bg-gradient-to-r from-green-500 to-green-600 px-8 py-6 text-[15px] rounded-xl font-medium hover:from-green-600 hover:to-green-700 transition-all flex items-center justify-center space-x-3 shadow-lg shadow-green-500/20 disabled:opacity-90 !mt-2"
+            className="w-full"
             disabled={isLoading || !formData.email.trim()}
           >
             {isLoading ? "Joining..." : "Join Waitlist"}

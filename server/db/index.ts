@@ -1,4 +1,3 @@
-// TODO: add type for data and remove eslint-disable
 import env from "@/lib/env";
 import * as schema from "@/server/db/schema";
 import { drizzle } from "drizzle-orm/postgres-js";
