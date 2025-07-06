@@ -92,9 +92,9 @@ Visit `http://localhost:3000` to see your waitlist in action!
 
 - **`components/waitlist-ui.tsx`** - The main waitlist component with form handling
 - **`app/api/submit-email/route.ts`** - API endpoint for email processing
-- **`server/db/schema/email.ts`** - Database schema for email storage
-- **`emails/waitlist-signup.tsx`** - Email template for confirmations
-- **`lib/config/seo.ts`** - SEO and branding configuration
+- **`app/_db/email-schema.ts`** - Database schema for email storage
+- **`emails/waitlist-signup-template.tsx`** - Email template for confirmations
+- **`lib/seo.ts`** - SEO and branding configuration
 
 ### Quick Customization (Search TODO: in code)
 Search TODO: in your editor to walk through all setup steps.
@@ -103,9 +103,9 @@ Search TODO: in your editor to walk through all setup steps.
 
 ### Customization Points
 1. **Styling**: Modify `components/waitlist-ui.tsx` for custom design
-2. **Email Template**: Edit `emails/waitlist-signup.tsx` for branded emails
-3. **SEO**: Update `lib/config/seo.ts` with your product details
-4. **Database**: Extend `server/db/schema/email.ts` for additional fields
+2. **Email Template**: Edit `emails/waitlist-signup-template.tsx` for branded emails
+3. **SEO**: Update `lib/seo.ts` with your product details
+4. **Database**: Extend `app/_db/email-schema.ts` for additional fields
 
 ## Contributing
 
