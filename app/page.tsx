@@ -10,7 +10,11 @@ const page = () => {
         My Upcoming Billion Dollor Product
       </h1>
       <WaitListForm />
-      <Link href="https://x.com/ashokasec" className="mt-6 font-medium underline" style={geistSans.style}>
+      <Link
+        href="https://x.com/ashokasec"
+        className="mt-6 font-medium underline"
+        style={geistSans.style}
+      >
         am here on x
       </Link>
     </main>

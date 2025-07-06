@@ -1,8 +1,10 @@
+import { emailTable } from "@/app/_db/email-schema";
 import env from "@/lib/env";
-import * as schema from "@/server/db/schema";
 import { drizzle } from "drizzle-orm/postgres-js";
 import type { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
+
+const schema = { emailTable };
 
 // ✅ NEW: declare globals to persist across hot reloads in development
 declare global {

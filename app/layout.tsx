@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { seo } from "@/lib/config/seo";
 import { geistMono, geistSans } from "@/lib/fonts";
+import { seo } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: seo.title,

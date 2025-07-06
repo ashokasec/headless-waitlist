@@ -1,12 +1,11 @@
+import db from "@/app/_db/db";
+import { emailSchema, emailTable } from "@/app/_db/email-schema";
+import { WaitlistSignupEmail } from "@/emails/waitlist-signup-template";
+import env from "@/lib/env";
+import { seo } from "@/lib/seo";
 import arcjet, { protectSignup, shield } from "@arcjet/next";
 import { NextResponse } from "next/server";
-import { emailTable } from "@/server/db/schema/email";
-import db from "@/server/db";
-import { eq } from "drizzle-orm";
-import env from "@/lib/env";
 import { Resend } from "resend";
-import { seo } from "@/lib/config/seo";
-import { WaitlistSignupEmail } from "@/emails/waitlist-signup";
 
 const resend = new Resend(env.RESEND_API_KEY);
 
@@ -34,51 +33,66 @@ const aj = arcjet({
 });
 
 export async function POST(req: Request) {
-  const { email } = await req.json();
+  let email: string;
+  try {
+    const body = await req.json();
+    const parsed = emailSchema.parse(body);
+    email = parsed.email;
+  } catch (error) {
+    return NextResponse.json(
+      { message: "Invalid email format." },
+      { status: 400 },
+    );
+  }
 
-  const decision = await aj.protect(req, {
-    email,
-  });
+  const decision = await aj.protect(req, { email });
 
   if (decision.isDenied()) {
-    if (decision.reason.isEmail()) {
-      return NextResponse.json(
-        {
-          message: "Invalid or Disposable email",
-        },
-        { status: 400 },
-      );
-    }
-    // Return a generic forbidden response
-    return NextResponse.json({ message: "Request blocked" }, { status: 403 });
+    const message = decision.reason.isEmail()
+      ? "Invalid or Disposable email"
+      : "Request blocked";
+    return NextResponse.json(
+      { message },
+      { status: decision.reason.isEmail() ? 400 : 403 },
+    );
   }
+
   try {
-    const [existingEmail] = await db
-      .select()
-      .from(emailTable)
-      .where(eq(emailTable.email, email))
-      .limit(1);
+    let isNew = false;
 
-    if (!existingEmail) {
+    try {
       await db.insert(emailTable).values({ email });
+      isNew = true;
+    } catch (error) {
+      if (!isUniqueViolation(error)) {
+        return NextResponse.json({ message: "Request processed successfully" });
+      }
+    }
 
-      // TODO: 4. Setup the email configuration.
+    if (isNew) {
       await resend.emails.send({
         from: `${seo.name} <onboarding@mail.comics.sh>`,
         to: email,
-        subject: `You're on the waitlist! - ${seo.name}`,
+        subject: `You're on the waitlist!`,
         html: WaitlistSignupEmail,
       });
     }
 
-    return NextResponse.json({
-      message: "Request processed successfully",
-    });
+    return NextResponse.json({ message: "Request processed successfully" });
   } catch (error) {
-    console.log(error);
+    console.error("Signup failed:", error);
     return NextResponse.json(
       { message: "Could not process request" },
       { status: 500 },
     );
   }
+}
+
+function isUniqueViolation(error: unknown): boolean {
+  return (
+    typeof error === "object" &&
+    error !== null &&
+    "code" in error &&
+    error.code === "23505"
+  );
 }
