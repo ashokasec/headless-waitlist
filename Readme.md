@@ -6,6 +6,7 @@ A modern, production-ready waitlist system built with Next.js 15, TypeScript, an
 
 - **Built-in Security**: Arcjet integration for bot protection, rate limiting, and email validation
 - **Automated Emails**: Resend integration for instant confirmation emails
+- **Email Verification (Optional)**: Enable email verification links for double opt-in
 - **Persistent Storage**: PostgreSQL database with Drizzle ORM for reliable data storage
 
 ## Tech Stack
@@ -66,6 +67,14 @@ RESEND_API_KEY="your_resend_api_key"
 # App
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
 NODE_ENV="development"
+
+# Email Verification (Optional)
+# Set to true to require users to verify their email address via a link
+EMAIL_VERIFICATION=true
+
+# JWT secret for signing email verification tokens (required if EMAIL_VERIFICATION=true)
+# Must be at least 8 characters
+JWT_SECRET="your_jwt_secret"
 ```
 
 ### 3. Start Database
@@ -91,9 +100,9 @@ Visit `http://localhost:3000` to see your waitlist in action!
 ## Key Files Explained
 
 - **`components/waitlist-ui.tsx`** - The main waitlist component with form handling
-- **`app/api/submit-email/route.ts`** - API endpoint for email processing
+- **`app/api/submit-email/route.ts`** - API endpoint for email processing and (optionally) sending verification emails
 - **`app/_db/email-schema.ts`** - Database schema for email storage
-- **`emails/waitlist-signup-template.tsx`** - Email template for confirmations
+- **`lib/emails.ts`** - Email templates for confirmations and verification
 - **`lib/seo.ts`** - SEO and branding configuration
 
 ### Quick Customization (Search TODO: in code)
@@ -103,7 +112,7 @@ Search TODO: in your editor to walk through all setup steps.
 
 ### Customization Points
 1. **Styling**: Modify `components/waitlist-ui.tsx` for custom design
-2. **Email Template**: Edit `emails/waitlist-signup-template.tsx` for branded emails
+2. **Email Templates**: Edit `lib/emails.ts` for branded emails and verification links
 3. **SEO**: Update `lib/seo.ts` with your product details
 4. **Database**: Extend `app/_db/email-schema.ts` for additional fields
 

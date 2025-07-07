@@ -1,11 +1,13 @@
 import db from "@/app/_db/db";
 import { emailSchema, emailTable } from "@/app/_db/email-schema";
-import { WaitlistSignupEmail } from "@/emails/waitlist-signup-template";
+import { EMAIL_VERIFICATION } from "@/lib/constants";
+import { emailVerificationTemplate, SimpleAckEmail } from "@/lib/emails";
 import env from "@/lib/env";
 import { seo } from "@/lib/seo";
 import arcjet, { protectSignup, shield } from "@arcjet/next";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import jwt from "jsonwebtoken";
 
 const resend = new Resend(env.RESEND_API_KEY);
 
@@ -70,12 +72,26 @@ export async function POST(req: Request) {
     }
 
     if (isNew) {
-      await resend.emails.send({
+      const common = {
         from: `${seo.name} <onboarding@mail.comics.sh>`,
         to: email,
         subject: `You're on the waitlist!`,
-        html: WaitlistSignupEmail,
-      });
+      };
+      if (EMAIL_VERIFICATION === true) {
+        // biome-ignore lint/style/noNonNullAssertion: <explanation>
+        const token = jwt.sign({ email }, env.JWT_SECRET!); // WARNING: Token never expires.
+        await resend.emails.send({
+          ...common,
+          html: emailVerificationTemplate({
+            link: `${env.NEXT_PUBLIC_APP_URL}/api/verify-email?token=${token}`,
+          }),
+        });
+      } else {
+        await resend.emails.send({
+          ...common,
+          html: SimpleAckEmail,
+        });
+      }
     }
 
     return NextResponse.json({ message: "Request processed successfully" });
